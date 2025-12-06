@@ -6,9 +6,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,5 +47,25 @@ public Product addProduct(@RequestParam("images")MultipartFile file,
 @GetMapping("/allprod")
 public List<Product>allProduct(){
 	return productService.allProduct();
+}
+@DeleteMapping("/deleteprod/{id}")
+public String deleteProduct(@PathVariable int id) {
+	return productService.deleteProduct(id);
+}
+@PutMapping("/updateprod/{id}")
+public ResponseEntity<?> updateProduct(
+	@PathVariable int id,
+	@RequestParam("name") String name,
+	 @RequestParam("category") String category,
+     @RequestParam("status") String status,
+     @RequestParam("price") int price,
+     @RequestParam(value = "image", required = false) MultipartFile image
+     ) {
+	Product updatedProduct=productService.updaProduct(id,name,category,status,price,image);
+		    if(updatedProduct==null) {
+		    	return ResponseEntity.status(404).body("Product not found"+id);
+		    }
+		    return ResponseEntity.ok(updatedProduct);
+
 }
 }
