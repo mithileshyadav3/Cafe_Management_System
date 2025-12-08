@@ -14,8 +14,8 @@ import com.auth.service.AddressService;
 public class AddressController {
 @Autowired
 public AddressService addressService;
-@PostMapping("/add")
-public Address addAddress(@RequestBody Address address) {
-return addressService.addAddress(address);
+@PostMapping("/add/{user_id}")
+public Address addAddress(Integer user_id,@RequestBody Address address) {
+return addressService.addAddress(user_id,address);
 }
 }

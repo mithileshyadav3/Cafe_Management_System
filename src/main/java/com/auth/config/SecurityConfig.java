@@ -43,7 +43,7 @@ public class SecurityConfig {
 	     http.csrf(customizer->customizer.disable());
 	     
 		 http.authorizeHttpRequests(request->request.
-				 requestMatchers("/adduser","/login","/addprod","/allprod","/deleteprod/**","/updateprod/**","address/**")
+				 requestMatchers("/adduser","/login","/addprod","/searchproduct","/allprod","/deleteprod/**","/updateprod/**","address/**")
 				 .permitAll().anyRequest().authenticated());
 //         http.formLogin(Customizer.withDefaults());
          http.httpBasic();

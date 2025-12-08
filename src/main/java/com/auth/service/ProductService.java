@@ -64,4 +64,8 @@ public Product updaProduct(int id, String name, String category,String status ,i
     }
 	return productRepo.save(existing);
 
+}
+public List<Product> searchProduct(String keyword) {
+	// TODO Auto-generated method stub
+	return productRepo.searchProduct(keyword);
 }}

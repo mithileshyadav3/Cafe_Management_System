@@ -32,6 +32,10 @@ public class UserService {
 	
 	public Users addUsers( Users users) {
 		String encodedpasswordString=passwordEncoder.encode(users.getPassword());
+		   // very important: link each address with this user
+	    if (users.getAddress() != null) {
+	        users.getAddress().forEach(a -> a.setUsers(users));
+	    }
 		users.setPassword(encodedpasswordString); 
 	  return userRepo.save(users);
 	}

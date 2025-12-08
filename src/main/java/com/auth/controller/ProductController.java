@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -67,5 +68,10 @@ public ResponseEntity<?> updateProduct(
 		    }
 		    return ResponseEntity.ok(updatedProduct);
 
+}
+@GetMapping("/searchproduct")
+public ResponseEntity<List<Product>>SearchProduct(@RequestParam String keyword){
+	List<Product>products=productService.searchProduct(keyword);
+	return new ResponseEntity<>(products,HttpStatus.OK);
 }
 }

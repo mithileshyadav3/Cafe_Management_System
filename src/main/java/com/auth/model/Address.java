@@ -1,9 +1,13 @@
 package com.auth.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Address {
@@ -15,6 +19,16 @@ public class Address {
   private String city;
   private Long pincode;
   private String state;
+  @ManyToOne
+  @JoinColumn(name="user_id")
+  @JsonIgnore
+  private Users users;
+  public Users getUsers() {
+	return users;
+}
+  public void setUsers(Users users) {
+	this.users = users;
+  }
   public Address() {
 	super();
 	// TODO Auto-generated constructor stub
