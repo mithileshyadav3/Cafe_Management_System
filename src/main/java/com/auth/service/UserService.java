@@ -1,5 +1,7 @@
 package com.auth.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,9 +47,17 @@ public class UserService {
 		{   
 			Users user=userRepo.findByUsername(login.getUsername());
 			String role=user.getRole().toUpperCase();
+			Integer user_id=user.getId();
 			
-			return jwtService.GenerateToken(login.getUsername(),role);
+			return jwtService.GenerateToken(login.getUsername(),user_id,role);
 		}
 		return "Fail";
+	}
+	public List<Users>allUsers(){
+		return userRepo.findAll();
+	}
+	public Users getUserId(Integer userid) {
+return	userRepo.findById(userid).orElseThrow(()->new RuntimeException("User id not found"));
+		
 	}
 }

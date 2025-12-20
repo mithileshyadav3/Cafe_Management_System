@@ -41,11 +41,13 @@ public class JwtService {
 	        byte[] bytes = Decoders.BASE64.decode(secretkey);
 	        return Keys.hmacShaKeyFor(bytes);
 	    }
-	public String GenerateToken(String username,String role) {
+	public String GenerateToken(String username,Integer user_id,String role) {
 		Map<String, Object>claims=new HashMap<>();
 		claims.put("role", role);
+		claims.put("userId", user_id);
 		return Jwts.builder()
 	                .claims()
+
 	                .add(claims)
 	                .subject(username)
 	                .issuedAt(new Date(System.currentTimeMillis()))
@@ -63,6 +65,11 @@ public class JwtService {
 	public String  extractRoles(String token) {
 		return extractClaim(token, claims->claims.get("role",String.class));
 	}
+	
+	public Integer extractUserId(String token) {
+	    return extractClaim(token, claims -> claims.get("userId", Integer.class));
+	}
+
 	// ------------------- Extract All Claims -------------------
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
