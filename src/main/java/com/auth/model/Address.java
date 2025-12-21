@@ -2,6 +2,7 @@ package com.auth.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
   private String building_name;
   private String road_no;
   private String city;
@@ -33,10 +34,11 @@ public class Address {
 	super();
 	// TODO Auto-generated constructor stub
   }
-  public int getId() {
+
+  public Integer getId() {
 	return id;
-  }
-  public void setId(int id) {
+}
+  public void setId(Integer id) {
 	this.id = id;
   }
   public String getBuilding_name() {

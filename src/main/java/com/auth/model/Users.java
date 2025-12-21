@@ -1,6 +1,8 @@
 package com.auth.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 import jakarta.persistence.CascadeType;
 
@@ -10,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -19,24 +22,30 @@ import jakarta.persistence.Table;
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
 	private String fullname;
   private String username;
   private String password;
   private String phone;
   private String role="USER";
   @OneToMany(mappedBy = "users",cascade = CascadeType.ALL)
-  private List<Address>address;
+//  @JoinColumn(name="address_id") 
+//  private List<Address>address;
+  private List<Address> address = new ArrayList<>();
+
   public Users() {
 	super();
 	// TODO Auto-generated constructor stub
   }
-  public int getId() {
+ 
+  public Integer getId() {
 	return id;
-  }
-  public void setId(int id) {
+}
+
+  public void setId(Integer id) {
 	this.id = id;
   }
+
   public String getFullname() {
 	return fullname;
   }

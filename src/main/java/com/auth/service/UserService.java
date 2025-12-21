@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.auth.DTO.LoginRequest;
+import com.auth.model.Address;
 
 //import org.springframework.web.bind.annotation.RequestBody;
 
@@ -60,4 +61,45 @@ public class UserService {
 return	userRepo.findById(userid).orElseThrow(()->new RuntimeException("User id not found"));
 		
 	}
+//	update the users
+	public Users updateUsers(Integer userId, Users updatedUser) {
+
+	    Users existingUser = userRepo.findById(userId)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+
+	    // Update user fields
+	    existingUser.setFullname(updatedUser.getFullname());
+	    existingUser.setPhone(updatedUser.getPhone());
+
+	    if (updatedUser.getAddress() != null) {
+
+	        for (Address incomingAddr : updatedUser.getAddress()) {
+
+	            // 🔹 UPDATE EXISTING ADDRESS
+	            if (incomingAddr.getId() != null) {
+
+	                Address existingAddr = existingUser.getAddress().stream()
+	                        .filter(a -> a.getId() != null &&
+	                                     a.getId().equals(incomingAddr.getId()))
+	                        .findFirst()
+	                        .orElseThrow(() -> new RuntimeException("Address not found"));
+
+	                existingAddr.setBuilding_name(incomingAddr.getBuilding_name());
+	                existingAddr.setRoad_no(incomingAddr.getRoad_no());
+	                existingAddr.setCity(incomingAddr.getCity());
+	                existingAddr.setPincode(incomingAddr.getPincode());
+	                existingAddr.setState(incomingAddr.getState());
+
+	            }
+	            // 🔹 ADD NEW ADDRESS
+	            else {
+	                incomingAddr.setUsers(existingUser);
+	                existingUser.getAddress().add(incomingAddr);
+	            }
+	        }
+	    }
+
+	    return userRepo.save(existingUser);
+	}
+
 }

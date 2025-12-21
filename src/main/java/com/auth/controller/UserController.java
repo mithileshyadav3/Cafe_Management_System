@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ private String login(@RequestBody LoginRequest login) {
 public List<Users>allUsers(){
 	return userService.allUsers();
 }
-@GetMapping("profile")
+@GetMapping("/profile")
 public Users getProfile(@RequestHeader("Authorization") String authHeader) {
 
     // Remove "Bearer "
@@ -50,5 +51,11 @@ public Users getProfile(@RequestHeader("Authorization") String authHeader) {
 
     // Fetch user by ID
     return userService.getUserId(userId);
+}
+@PutMapping("/update")
+public Users userUpdate(@RequestHeader("Authorization")String authHeader,@RequestBody Users user) {
+	String token=authHeader.substring(7);
+	Integer userId=jwtService.extractUserId(token);
+	return userService.updateUsers(userId,user);
 }
 }
