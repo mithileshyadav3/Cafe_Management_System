@@ -41,9 +41,9 @@ public class SecurityConfig {
 @Bean
  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	     http.csrf(customizer->customizer.disable());
-	     
+	     http.cors(Customizer.withDefaults()) ;
 		 http.authorizeHttpRequests(request->request.
-				 requestMatchers("/users/**","/searchproduct","/allprod","/deleteprod/**","/updateprod/**","address/**")
+				 requestMatchers("/users/**","/orders/**","/searchproduct","/allprod","/deleteprod/**","/updateprod/**","address/**")
 				 .permitAll().anyRequest().authenticated());
 //         http.formLogin(Customizer.withDefaults());
          http.httpBasic();

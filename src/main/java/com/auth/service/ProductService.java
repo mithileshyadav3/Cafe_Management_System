@@ -33,7 +33,7 @@ public String deleteProduct(int id) {
 	return "Product not found";
 }
 
-public Product updaProduct(int id, String name, String category,String status ,int price, MultipartFile image) {
+public Product updaProduct(int id, String name, String category,String status ,Double price, MultipartFile image) {
 	// TODO Auto-generated method stub
 	Product existing=productRepo.findById(id).orElse(null);
 	if(existing==null) {

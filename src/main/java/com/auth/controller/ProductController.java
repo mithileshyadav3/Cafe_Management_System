@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.auth.model.Product;
 import com.auth.service.ProductService;
 @CrossOrigin(origins="http://localhost:4200")
+//@RequestMapping("/product")
 @RestController
 public class ProductController {
 	@Autowired
@@ -29,7 +31,7 @@ public class ProductController {
 @PostMapping("/addprod")
 public Product addProduct(@RequestParam("images")MultipartFile file,
 		                  @RequestParam("name") String name,
-		                  @RequestParam("price") Integer price,
+		                  @RequestParam("price") Double price,
 		                  @RequestParam("category")String category,
 		                  @RequestParam("status")String status) throws IOException {
 	String uploadDir="uploads/";
@@ -59,7 +61,7 @@ public ResponseEntity<?> updateProduct(
 	@RequestParam("name") String name,
 	 @RequestParam("category") String category,
      @RequestParam("status") String status,
-     @RequestParam("price") int price,
+     @RequestParam("price") Double price,
      @RequestParam(value = "image", required = false) MultipartFile image
      ) {
 	Product updatedProduct=productService.updaProduct(id,name,category,status,price,image);
