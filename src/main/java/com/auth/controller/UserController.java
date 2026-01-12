@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auth.DTO.LoginRequest;
 import com.auth.model.Users;
+import com.auth.repo.UserRepo;
 import com.auth.service.JwtService;
 //import com.auth.repo.UserRepo;
 import com.auth.service.UserService;
@@ -22,6 +23,8 @@ import com.auth.service.UserService;
 @RequestMapping("users")
 @RestController
 public class UserController {
+	@Autowired
+	private UserRepo userRepo;
 	@Autowired
 	private JwtService jwtService;
 	@Autowired
@@ -39,6 +42,10 @@ private String login(@RequestBody LoginRequest login) {
 @GetMapping("/allusers")
 public List<Users>allUsers(){
 	return userService.allUsers();
+}
+@GetMapping("/usersonly")
+public List<Users>roleUsers(){
+	return userRepo.findByRole("USER");
 }
 @GetMapping("/profile")
 public Users getProfile(@RequestHeader("Authorization") String authHeader) {

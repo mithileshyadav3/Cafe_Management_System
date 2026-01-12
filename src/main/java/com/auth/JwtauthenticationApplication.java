@@ -8,6 +8,9 @@ public class JwtauthenticationApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JwtauthenticationApplication.class, args);
+		
+		 
+		
 	}
 
 }

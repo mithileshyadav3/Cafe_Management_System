@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
@@ -24,6 +25,7 @@ public class Users {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 	private String fullname;
+	private String email;
   private String username;
   private String password;
   private String phone;
@@ -32,7 +34,8 @@ public class Users {
 //  @JoinColumn(name="address_id") 
 //  private List<Address>address;
   private List<Address> address = new ArrayList<>();
-
+//@OneToOne(mappedBy = "users")
+//private ForgetPassword forgetPassword;
   public Users() {
 	super();
 	// TODO Auto-generated constructor stub
@@ -52,6 +55,15 @@ public class Users {
   public void setFullname(String fullname) {
 	this.fullname = fullname;
   }
+  
+  public String getEmail() {
+	return email;
+}
+
+  public void setEmail(String email) {
+	this.email = email;
+  }
+
   public String getUsername() {
 	return username;
   }
@@ -82,6 +94,16 @@ public class Users {
   public void setAddress(List<Address> address) {
 	this.address = address;
   }
+//
+//  public ForgetPassword getForgetPassword() {
+//	return forgetPassword;
+//  }
+//
+//  public void setForgetPassword(ForgetPassword forgetPassword) {
+//	this.forgetPassword = forgetPassword;
+//  }
+
+ 
   
     
   
